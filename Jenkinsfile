@@ -1,5 +1,8 @@
 pipeline {
 	agent none
+	options {
+		skipStagesAfterUnstable()
+	}
 	stages {
 		stage('Build'){
 			agent{
@@ -26,10 +29,11 @@ pipeline {
 				}
 			}
 		}
+		/*
 		stage('Deliver'){
 			agent {
 				docker {
-					image 'cdrx/pyinstaller-linux:python3'
+					image 'cdrx/pyinstaller-linux'
 				}
 			}
 			steps {
@@ -37,9 +41,10 @@ pipeline {
 			}
 			post {
 				success {
-					archiveArtifacts 'py_nato'
+					archiveArtifacts 'dist/py_nato'
 				}
 			}
 		}
+		*/
 	}
 }
