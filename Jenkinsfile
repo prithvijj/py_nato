@@ -26,5 +26,20 @@ pipeline {
 				}
 			}
 		}
+		stage('Deliver'){
+			agent {
+				docker {
+					image 'cdrx/pytinstaller-linux:python3'
+				}
+			}
+			steps {
+				sh 'pyinstaller --onefile py_nato.py'
+			}
+			post {
+				success {
+					archiveArtifacts 'py_nato'
+				}
+			}
+		}
 	}
 }
